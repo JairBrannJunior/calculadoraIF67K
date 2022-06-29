@@ -1,3 +1,5 @@
+package calculadora;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -12,6 +14,7 @@ import javax.swing.JOptionPane;
 public class Calculadora implements ActionListener {
 
 	static Calculadora c = new Calculadora();
+        CalcService option = null;        
 
 	static JFrame janela = new JFrame();
 
@@ -33,7 +36,7 @@ public class Calculadora implements ActionListener {
 
 	int resultadoFinal = 0;
  
-	public static void main (String args[]) {
+	public static void main (String args[]) {                
 	
 		//Janela
 		janela.setSize(300,400);
@@ -81,11 +84,13 @@ public class Calculadora implements ActionListener {
 		janela.setVisible(true);
 	}
 
+        @Override
 	public void actionPerformed(ActionEvent evento) {
 
 		if (evento.getSource().equals(soma)) {
 			try {
-				resultadoFinal = (Integer.parseInt(caixa1.getText()) + Integer.parseInt(caixa2.getText()));
+                            option = new CalcSoma();
+                            resultadoFinal = option.calc(Integer.parseInt(caixa1.getText()), Integer.parseInt(caixa2.getText()));
 
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null, "Numero invalido, digite novamente!","Erro",JOptionPane.PLAIN_MESSAGE);
@@ -94,7 +99,8 @@ public class Calculadora implements ActionListener {
 
 		if (evento.getSource().equals(subtracao)) {
 			try {
-				resultadoFinal = (Integer.parseInt(caixa1.getText()) - Integer.parseInt(caixa2.getText()));
+                            option = new CalcSubtracao();
+                            resultadoFinal = option.calc(Integer.parseInt(caixa1.getText()), Integer.parseInt(caixa2.getText()));
 
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null, "Numero invalido, digite novamente!","Erro",JOptionPane.PLAIN_MESSAGE);
@@ -103,7 +109,8 @@ public class Calculadora implements ActionListener {
 
 		if (evento.getSource().equals(divisao)) {
 			try {
-				resultadoFinal = (Integer.parseInt(caixa1.getText()) / Integer.parseInt(caixa2.getText()));
+                            option = new CalcDivisao();
+                            resultadoFinal = option.calc(Integer.parseInt(caixa1.getText()), Integer.parseInt(caixa2.getText()));
 
 			} catch (NumberFormatException erro1) {
 				JOptionPane.showMessageDialog(null, "Numero invalido, digite novamente!","Erro",JOptionPane.PLAIN_MESSAGE);
@@ -114,7 +121,8 @@ public class Calculadora implements ActionListener {
 
 		if (evento.getSource().equals(multiplicacao)) {
 			try {
-				resultadoFinal = (Integer.parseInt(caixa1.getText()) * Integer.parseInt(caixa2.getText()));
+                            option = new CalcMultiplicacao();
+                            resultadoFinal = option.calc(Integer.parseInt(caixa1.getText()), Integer.parseInt(caixa2.getText()));
 
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null, "Numero invalido, digite novamente!","Erro",JOptionPane.PLAIN_MESSAGE);
@@ -147,8 +155,8 @@ public class Calculadora implements ActionListener {
 	}
 
 	public static void testaNumero (int numero) throws NegaException{
-		if (numero < 0) {
-			throw new NegaException(numero);
-		}
+            if (numero < 0) {
+                throw new NegaException(numero);
+            }
 	}
 }

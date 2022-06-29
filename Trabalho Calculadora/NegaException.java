@@ -1,3 +1,5 @@
+package calculadora;
+
 import javax.swing.JOptionPane;
 
 public class NegaException extends Exception {
