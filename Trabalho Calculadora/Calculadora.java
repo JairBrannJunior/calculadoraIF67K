@@ -1,6 +1,3 @@
-package com.mycompany.calculadora;
-
-import io.javalin.Javalin;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -9,21 +6,12 @@ import javax.swing.JButton;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
 
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-
 public class Calculadora implements ActionListener {
-        Javalin app = Javalin.create().start(3000);
 
 	static Calculadora c = new Calculadora();
-        private final CloseableHttpClient httpClient = HttpClients.createDefault();
 
 	static JFrame janela = new JFrame();
 
@@ -46,6 +34,7 @@ public class Calculadora implements ActionListener {
 	int resultadoFinal = 0;
  
 	public static void main (String args[]) {
+	
 		//Janela
 		janela.setSize(300,400);
 		janela.setTitle("Calculadora");
@@ -89,78 +78,47 @@ public class Calculadora implements ActionListener {
 		sair.addActionListener(c);
 
 		janela.setLayout(new FlowLayout());
-		janela.setVisible(true);                               
+		janela.setVisible(true);
 	}
-        
+
 	public void actionPerformed(ActionEvent evento) {
 
 		if (evento.getSource().equals(soma)) {
 			try {
-                            app.get("/soma", ctx -> {
-                                resultadoFinal = (Integer.parseInt(caixa1.getText()) + Integer.parseInt(caixa2.getText()));
-                                ctx.result("Resultado: " + resultadoFinal);
-                            });
-                            
-                            HttpGet request = new HttpGet("http://localhost:3000/soma");
-                            httpClient.execute(request);
+				resultadoFinal = (Integer.parseInt(caixa1.getText()) + Integer.parseInt(caixa2.getText()));
 
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null, "Numero invalido, digite novamente!","Erro",JOptionPane.PLAIN_MESSAGE);
-			} catch (IOException ex) {
-                        Logger.getLogger(Calculadora.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+			}
 		}
 
 		if (evento.getSource().equals(subtracao)) {
 			try {
-                            app.get("/subtracao", ctx -> {
-                                resultadoFinal = (Integer.parseInt(caixa1.getText()) - Integer.parseInt(caixa2.getText()));
-                                ctx.result("Resultado: " + resultadoFinal);
-                            });
-                            
-                            HttpGet request = new HttpGet("http://localhost:3000/subtracao");
-                            httpClient.execute(request);
+				resultadoFinal = (Integer.parseInt(caixa1.getText()) - Integer.parseInt(caixa2.getText()));
+
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null, "Numero invalido, digite novamente!","Erro",JOptionPane.PLAIN_MESSAGE);
-			} catch (IOException ex) {
-                        Logger.getLogger(Calculadora.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+			}
 		}
 
 		if (evento.getSource().equals(divisao)) {
 			try {
-                            app.get("/divisao", ctx -> {
-                                resultadoFinal = (Integer.parseInt(caixa1.getText()) / Integer.parseInt(caixa2.getText()));
-                                ctx.result("Resultado: " + resultadoFinal);
-                            });
-                            
-                            HttpGet request = new HttpGet("http://localhost:3000/divisao");
-                            httpClient.execute(request);
+				resultadoFinal = (Integer.parseInt(caixa1.getText()) / Integer.parseInt(caixa2.getText()));
 
 			} catch (NumberFormatException erro1) {
 				JOptionPane.showMessageDialog(null, "Numero invalido, digite novamente!","Erro",JOptionPane.PLAIN_MESSAGE);
 			} catch (ArithmeticException erro2) {
 				JOptionPane.showMessageDialog(null, "Divisao nao pode ser por 0! Digite novamente.","Erro",JOptionPane.PLAIN_MESSAGE);
-			} catch (IOException ex) {
-                        Logger.getLogger(Calculadora.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+			}
 		}
 
 		if (evento.getSource().equals(multiplicacao)) {
 			try {
-                            app.get("/multiplicacao", ctx -> {
-                                resultadoFinal = (Integer.parseInt(caixa1.getText()) * Integer.parseInt(caixa2.getText()));
-                                ctx.result("Resultado: " + resultadoFinal);
-                            });
-                            
-                            HttpGet request = new HttpGet("http://localhost:3000/multiplicacao");
-                            httpClient.execute(request);
+				resultadoFinal = (Integer.parseInt(caixa1.getText()) * Integer.parseInt(caixa2.getText()));
 
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null, "Numero invalido, digite novamente!","Erro",JOptionPane.PLAIN_MESSAGE);
-			} catch (IOException ex) {
-                        Logger.getLogger(Calculadora.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+			}
 		}
 
 		if (evento.getSource().equals(igual)) {
